@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { timingSafeEqual } from 'crypto';
+import { Link } from 'react-router-dom'
+
 
 class ListContacts extends Component {
     static propTypes = {
         contacts: PropTypes.array.isRequired,
         removeContact: PropTypes.func.isRequired
     }
-    
+
     state = {
         query:''
     }
@@ -40,6 +42,10 @@ class ListContacts extends Component {
                      value={this.state.query}
                      onChange={(event) => (this.updateQuery(event.target.value))}
                     />
+                    <Link
+                        to = '/create'
+                        className="add-contact"
+                    > Add Contact </Link>
                     {/* <p>{JSON.stringify(this.state)}></p> */}
                      {/* <p>{this.state.query} </p> */}
                 </div>

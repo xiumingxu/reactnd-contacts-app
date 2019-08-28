@@ -7,7 +7,7 @@ import { createSecureContext } from 'tls';
 class App extends Component {
   state = {
     contacts : [],
-    screen : 'were',
+    screen : 'list',
  };
 
  componentDidMount(){
