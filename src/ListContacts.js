@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 class ListContacts extends Component {
     static propTypes = {
         contacts: PropTypes.array.isRequired,
-        removeContact: PropTypes.func.isRequired
+        onDeleteContact: PropTypes.func.isRequired
     }
 
     state = {
@@ -72,7 +72,7 @@ class ListContacts extends Component {
                             <p className='contact-handle'>{contact.handle}</p>
                         </div>
                         {/* {have to be a function} */}
-                        <button className="contact-remove" onClick={(event)=>this.props.removeContact(contact.id)}></button>
+                        <button className="contact-remove" onClick={(event)=>this.props.onDeleteContact(contact.id)}></button>
                        
                     </li>)
                   )

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import ListContacts from './ListContacts'
 import * as ContactAPI from './utils/ContactsAPI'
 import CreateContact from './CreateContact';
+import { Route } from 'react-router-dom'
 import { createSecureContext } from 'tls';
 
 class App extends Component {
   state = {
     contacts : [],
-    screen : 'list',
  };
 
  componentDidMount(){
@@ -22,28 +22,63 @@ class App extends Component {
 
     let newContacts = this.state.contacts.filter(c => c.id!= contact);
     this.setState({contacts: newContacts});
-    ContactAPI.remove(contact);
+    ContactAPI.remove(contact).then(
+      ()=>{console.log('delete')}
+    );
 
 
+  }
+
+  createContact = (contact) =>{
+    ContactAPI.create(contact).then(
+      (contact) => {
+        console.log('what');
+        this.setState(
+          (preState)=>{
+            contacts: preState.contacts.concat([contact])
+          }
+        )
+        }
+    );
+    
   }
   render() {
     return (
       <div>
-        {
-          this.state.screen === 'list' && (
+        <Route
+          exact
+          path="/"
+          render={() => (
             <ListContacts
-            contacts={this.state.contacts}
-            onDeleteContact={this.removeContact}
+              contacts={this.state.contacts}
+              onDeleteContact={this.removeContact}
             />
-          )
-        }
-        {
-          this.state.screen === 'contact' && (
-            <CreateContact />
-          )
-        }
-       
-     
+          )}
+        />
+
+        <Route
+          path='/create'
+          render={({history}) => (
+            <CreateContact 
+              onCreateContact={
+                (contact) => {
+                  history.push('/');
+                  this.createContact(contact);
+                 
+                }
+
+
+              }
+            
+            
+            
+            />
+
+
+          )}
+        
+        
+        />
       </div>
     );
   }
