@@ -72,7 +72,7 @@ class ListContacts extends Component {
                             <p className='contact-handle'>{contact.handle}</p>
                         </div>
                         {/* {have to be a function} */}
-                        <button className="contact-remove" onClick={(event)=>this.props.onDeleteContact(contact.id)}></button>
+                        <button className="contact-remove" onClick={(event)=>this.props.onDeleteContact(contact)}></button>
                        
                     </li>)
                   )
